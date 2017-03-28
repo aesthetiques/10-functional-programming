@@ -73,7 +73,7 @@
       return {
         name: author,
         totalWordsByAuthor: Article.all.filter(function (articleObject){
-          return articleOnject.author === author;
+          return articleObject.author === author;
         })
         .map(function(articleObject){
           return articleObject.body.split(' ').length;
