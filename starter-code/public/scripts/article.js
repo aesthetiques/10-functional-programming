@@ -53,8 +53,8 @@
   Article.numWordsAll = () => {
     //test this once the page loads at all.
     return Article.all.map((objBodyCount) =>
-      objBodyCount.body.split(' ').length.reduce((acc, val) => acc + val)
-  )};
+      objBodyCount.body.split(' ').length).reduce((acc, val) => acc + val)
+  };
 
   // TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names.
   Article.allAuthors = () => {
