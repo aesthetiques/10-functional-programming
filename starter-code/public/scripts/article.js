@@ -4,12 +4,13 @@
 
 // TODO: Wrap the entire contents of this file in an IIFE.
 // Pass in to the IIFE a module, upon which objects can be attached for later access.
-(function(){
+(function(module){
   function Article(opts) {
     // REVIEW: Lets review what's actually happening here, and check out some new syntax!!
     Object.keys(opts).forEach(e => this[e] = opts[e]);
   }
 
+  Article.all = [];
   Article.prototype.toHtml = function() {
     var template = Handlebars.compile($('#article-template').text());
 
@@ -35,7 +36,8 @@
     //   return new Article(element);
     // });
 
-    Article.all = rawData.map(element => new Article(element));
+    Article.all = rows.map(ele => new Article(ele));
+}
 
   Article.fetchAll = callback => {
     $.get('/articles')
@@ -58,16 +60,21 @@
   Article.allAuthors = () => {
     //test this once the page loads at all.
     return Article.allAuthors.map((authorsName) =>
-      authorsName.author.reduce((acc, val) => acc + val)
-  )};
+      authorsName.author).reduce((acc, val) => {
+        if ( acc.indexOf(val) === -1){
+          acc.push(val);
+        }
+        return acc;
+}, [])
+  };
 
   Article.numWordsByAuthor = () => {
-    return Article.allAuthors().map(author => {
+    //return Article.allAuthors().map(author => {
       // TODO: Transform each author string into an object with properties for
       // the author's name, as well as the total number of words across all articles
       // written by the specified author.
 
-    })
+    //})
   };
 
   Article.truncateTable = callback => {
@@ -112,4 +119,5 @@
     .then(console.log)
     .then(callback);
   };
-}());
+  module.Article = Article;
+}(window));
