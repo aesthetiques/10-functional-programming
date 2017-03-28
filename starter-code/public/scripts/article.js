@@ -32,9 +32,6 @@
     Article.all.push(new Article(ele));
   });
   */
-    // Article.all = rawData.map(function(element){
-    //   return new Article(element);
-    // });
 
     Article.all = rows.map(ele => new Article(ele));
 }
