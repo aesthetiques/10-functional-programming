@@ -32,12 +32,9 @@
     Article.all.push(new Article(ele));
   });
   */
-    // Article.all = rawData.map(function(element){
-    //   return new Article(element);
-    // });
 
     Article.all = rows.map(ele => new Article(ele));
-}
+  }
 
   Article.fetchAll = callback => {
     $.get('/articles')
@@ -76,9 +73,7 @@
         wordsWritten: Article.all.filter((articleObject) =>
           articleObject.author === author)
         .map(function(articleObject){
-          return articleObject.body.split(' ').length;
-        })
-        .reduce((acc, val) => acc + val),
+          return articleObject.body.split(' ').length).reduce((acc, val) => acc + val),
       }
     })
   };
